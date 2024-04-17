@@ -23,8 +23,7 @@ public class AccountServiceIml implements IAccountService{
     @Override
     public List<AccountDto> findAll() {
         List<Account> accounts = accountRepository.findAll();
-        List<AccountDto> accountDtos = accounts.stream().map((acc) -> this.modelMapper.map(acc, AccountDto.class)).collect(Collectors.toList());
-        return accountDtos;
+        return accounts.stream().map((acc) -> this.modelMapper.map(acc, AccountDto.class)).collect(Collectors.toList());
     }
 
     @Override

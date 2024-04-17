@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -15,11 +16,11 @@ public class ExamResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.TIME)
-    private Time startTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp startTime;
 
-    @Temporal(TemporalType.TIME)
-    private Time endTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp endTime;
 
     private Float point;
 
