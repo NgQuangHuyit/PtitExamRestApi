@@ -1,4 +1,4 @@
-package com.ptit.ptitexam.model;
+package com.ptit.ptitexam.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,21 +8,23 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Exam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private Long id;
 
-    String title;
+    @Column(nullable = false)
+    private String title;
 
-    String description;
+    private String description;
 
-    String subject;
+    private String subject;
 
-    int timeAmt;
+    private Integer timeAmt;
 
-    Boolean isActive;
+    private Boolean isActive;
 
     @Temporal(TemporalType.TIME)
     Time createdAt;
@@ -31,7 +33,7 @@ public class Exam {
     @JoinColumn(name = "createdBy")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    Admin admin;
+    private Admin admin;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude

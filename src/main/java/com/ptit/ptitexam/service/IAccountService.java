@@ -1,13 +1,16 @@
 package com.ptit.ptitexam.service;
 
-import com.ptit.ptitexam.model.Account;
+import com.ptit.ptitexam.entity.Account;
+import com.ptit.ptitexam.payload.AccountDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IAccountService {
 
-    List<Account> findAll();
+    List<AccountDto> findAll();
 
-    Optional<Account> findById(String id);
+    AccountDto createAccount(AccountDto accountDto);
+
+
 }

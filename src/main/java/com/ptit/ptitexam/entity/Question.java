@@ -1,4 +1,4 @@
-package com.ptit.ptitexam.model;
+package com.ptit.ptitexam.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,6 +13,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 300)
     private String content;
 
     private String type;

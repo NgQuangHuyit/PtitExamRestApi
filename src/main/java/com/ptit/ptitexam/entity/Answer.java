@@ -1,4 +1,4 @@
-package com.ptit.ptitexam.model;
+package com.ptit.ptitexam.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

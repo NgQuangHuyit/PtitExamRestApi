@@ -1,4 +1,4 @@
-package com.ptit.ptitexam.model;
+package com.ptit.ptitexam.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class ExamResult {
     @Temporal(TemporalType.TIME)
     private Time endTime;
 
-    private Integer point;
+    private Float point;
 
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false, updatable = false)
