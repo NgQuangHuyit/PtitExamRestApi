@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -23,10 +24,10 @@ public class Account {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Temporal(TemporalType.TIME)
-    private Time createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp createdAt;
 
-    private Boolean isActive;
+    private Boolean isActive = true;
 
     private String fullname;
 
@@ -39,6 +40,7 @@ public class Account {
     @Column(length = 5)
     private String gender;
 
+    @Column(length = 15)
     private String phoneNumber;
 
 
@@ -50,7 +52,7 @@ public class Account {
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = new Time(System.currentTimeMillis());
+        this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 
 }

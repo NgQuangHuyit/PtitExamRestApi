@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -24,10 +25,14 @@ public class Exam {
 
     private Integer timeAmt;
 
-    private Boolean isActive;
+    @Column()
+    private Boolean isActive = true;
 
     @Temporal(TemporalType.TIME)
     Time createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    Timestamp updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "createdBy")
@@ -40,5 +45,18 @@ public class Exam {
     @ToString.Exclude
     List<ExamResult> examResults;
 
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
+    List<Question> questions;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Time(System.currentTimeMillis());
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 
 }

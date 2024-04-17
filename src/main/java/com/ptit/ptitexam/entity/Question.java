@@ -20,6 +20,7 @@ public class Question {
 
     @Temporal(TemporalType.TIME)
 
+
     private Time lastModified;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
