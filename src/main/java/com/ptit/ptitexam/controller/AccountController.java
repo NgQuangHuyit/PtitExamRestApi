@@ -18,6 +18,26 @@ public class AccountController {
     @Autowired
     private AccountServiceIml accountService;
 
+    @PostMapping("/login")
+    public String login( @RequestBody AccountDto account) {
+    	AccountDto loggedInAccount = accountService.loginAccount(account.getUsername(), account.getPassword());
+    	if(loggedInAccount != null) {
+    		return "Login successful";
+    	} else {
+    		return "Invalid username or password";
+    	}
+    }
+    
+    @PostMapping("/register")
+    public String register(@RequestBody AccountDto account) {
+    	boolean isRegistered = accountService.registerUser(account.getUsername(), account.getPassword(), account.getEmail());
+    	if(isRegistered) {
+    		return "Registration successful";
+    	} else {
+    		return "Username already exists";
+    	}
+    }
+    
     @GetMapping("/user")
     public ResponseEntity<?> getAllAccounts() {
         List<AccountDto> accountDtos = accountService.findAll();
@@ -36,11 +56,11 @@ public class AccountController {
 
 //    }
 
-    @PostMapping("/user")
-    public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
-        AccountDto account = accountService.createAccount(accountDto);
-        return new ResponseEntity<>(account, HttpStatus.CREATED);
-    }
+//    @PostMapping("/user")
+//    public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
+//        AccountDto account = accountService.createAccount(accountDto);
+//        return new ResponseEntity<>(account, HttpStatus.CREATED);
+//    }
 
 
 }

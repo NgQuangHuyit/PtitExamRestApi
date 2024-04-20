@@ -14,9 +14,33 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceIml implements IAccountService{
+	//register
     @Autowired
     private AccountRepository accountRepository;
-
+    public boolean registerUser(String username, String password, String email) {
+    	if(accountRepository.existsByUsername(username)) {
+    		return false;
+    	}
+    	Account user = new Account();
+    	user.setUsername(username);
+    	user.setPassword(password);
+    	user.setEmail(email);
+    	accountRepository.save(user);
+    	return true;
+    }
+    
+    public AccountDto loginAccount(String username, String password) {
+    	Account accountEntity = accountRepository.findByUsernameAndPassword(username, password);
+    	if(accountEntity != null) {
+    		AccountDto accountDTO = new AccountDto();
+    		accountDTO.setUsername(accountEntity.getUsername());
+    		accountDTO.setPassword(accountEntity.getPassword());
+    		return accountDTO;
+    	} else {
+    		return null;
+    	}
+    }
+    
     @Autowired
     public ModelMapper modelMapper;
 
@@ -26,12 +50,12 @@ public class AccountServiceIml implements IAccountService{
         return accounts.stream().map((acc) -> this.modelMapper.map(acc, AccountDto.class)).collect(Collectors.toList());
     }
 
-    @Override
-    public AccountDto createAccount(AccountDto accountDto) {
-        Account account = this.modelMapper.map(accountDto, Account.class);
-        Account savedAccount = accountRepository.save(account);
-        return this.modelMapper.map(savedAccount, AccountDto.class);
-    }
+//    @Override
+//    public AccountDto createAccount(AccountDto accountDto) {
+//        Account account = this.modelMapper.map(accountDto, Account.class);
+//        Account savedAccount = this.accountRepository.save(account);
+//        return this.modelMapper.map(savedAccount, AccountDto.class);
+//    }
 
 
 }
