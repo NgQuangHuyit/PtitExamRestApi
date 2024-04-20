@@ -2,10 +2,9 @@ package com.ptit.ptitexam.entity;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -24,8 +23,8 @@ public class Admin {
     @Column(nullable = false)
     private String password;
 
-    @Temporal(TemporalType.TIME)
-    private Time lastLoginTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp lastLoginTime;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude

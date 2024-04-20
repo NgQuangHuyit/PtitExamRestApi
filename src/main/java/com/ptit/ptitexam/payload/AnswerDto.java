@@ -1,7 +1,6 @@
 package com.ptit.ptitexam.payload;
 
-import com.ptit.ptitexam.entity.Question;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnswerDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long ansID;
 
     private String content;

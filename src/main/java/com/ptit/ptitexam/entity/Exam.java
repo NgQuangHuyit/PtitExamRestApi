@@ -3,7 +3,6 @@ package com.ptit.ptitexam.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,11 +27,14 @@ public class Exam {
     @Column()
     private Boolean isActive = true;
 
-    @Temporal(TemporalType.TIME)
-    Time createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    Timestamp updatedAt;
+    private Timestamp updatedAt;
+
+    @Column
+    private Integer questionCount = 0;
 
     @ManyToOne
     @JoinColumn(name = "createdBy")
@@ -43,15 +45,16 @@ public class Exam {
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    List<ExamResult> examResults;
+    private List<ExamResult> examResults;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
-    List<Question> questions;
+    private List<Question> questions;
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = new Time(System.currentTimeMillis());
+        this.createdAt = new Timestamp(System.currentTimeMillis());
         this.updatedAt = new Timestamp(System.currentTimeMillis());
+        this.questionCount = 0;
     }
 
     @PreUpdate
@@ -59,4 +62,7 @@ public class Exam {
         this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
+    public void updateQuestionCnt() {
+        this.questionCount = this.questions.size() + 1;
+    }
 }

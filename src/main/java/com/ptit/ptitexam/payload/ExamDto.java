@@ -1,19 +1,17 @@
 package com.ptit.ptitexam.payload;
 
-import com.ptit.ptitexam.entity.Admin;
-import com.ptit.ptitexam.entity.ExamResult;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExamDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     private String title;
@@ -24,8 +22,14 @@ public class ExamDto {
 
     private Integer timeAmt;
 
+    private Integer questionCount;
+
     private Boolean isActive;
 
-    private Time createdAt;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Timestamp createdAt;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Timestamp updatedAt;
 
 }

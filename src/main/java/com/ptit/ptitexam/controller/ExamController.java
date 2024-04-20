@@ -42,8 +42,8 @@ public class ExamController {
     }
 
 
-    @PostMapping("/exams/{adminId}")
-    public ResponseEntity<?> createExam(@PathVariable(required = true) Long adminId, @RequestBody ExamDto examDto) {
+    @PostMapping("/exams")
+    public ResponseEntity<?> createExam(@RequestParam(name = "adminId", required = true) Long adminId, @RequestBody ExamDto examDto) {
         return ResponseEntity.ok(examService.createExam(examDto, adminId));
     }
 
@@ -55,6 +55,6 @@ public class ExamController {
     @DeleteMapping("/exams/{id}")
     public ResponseEntity<?> deleteExam(@PathVariable(required = true) Long id) {
         examService.deleteExam(id);
-        return new ResponseEntity<>(new ApiResponse("Exam deleted succesfully", true), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse("Exam was deleted successfully", true), HttpStatus.OK);
     }
 }

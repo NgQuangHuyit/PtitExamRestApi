@@ -1,7 +1,6 @@
 package com.ptit.ptitexam.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ptit.ptitexam.entity.ExamResult;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,7 +12,6 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
 @Getter
 @Setter
@@ -49,6 +47,7 @@ public class AccountDto {
 
     private String phoneNumber;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Time lastLogin;
 
 

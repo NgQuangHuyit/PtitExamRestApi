@@ -1,22 +1,20 @@
 package com.ptit.ptitexam.controller;
 
-import com.ptit.ptitexam.entity.Account;
 import com.ptit.ptitexam.payload.AccountDto;
-import com.ptit.ptitexam.service.AccountServiceIml;
+import com.ptit.ptitexam.service.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController()
 public class AccountController {
 
     @Autowired
-    private AccountServiceIml accountService;
+    private AccountServiceImpl accountService;
 
     @GetMapping("/user")
     public ResponseEntity<?> getAllAccounts() {
