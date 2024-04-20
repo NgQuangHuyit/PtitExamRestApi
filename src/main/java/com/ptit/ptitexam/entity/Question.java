@@ -36,6 +36,15 @@ public class Question {
     @PrePersist
     public void prePersist() {
         this.lastModified = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PostPersist
+    public void postPersist() {
+        this.exam.updateQuestionCnt();
+    }
+
+    @PostRemove
+    public void postRemove() {
         this.exam.updateQuestionCnt();
     }
 

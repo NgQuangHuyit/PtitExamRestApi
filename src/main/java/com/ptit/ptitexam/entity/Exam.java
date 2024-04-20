@@ -63,6 +63,6 @@ public class Exam {
     }
 
     public void updateQuestionCnt() {
-        this.questionCount = this.questions.size() + 1;
+        this.questionCount = this.questions.size();
     }
 }
