@@ -40,7 +40,24 @@ public class AccountServiceIml implements IAccountService{
     		return null;
     	}
     }
+    public Optional<Account> findAccountById(Long id) {
+        return accountRepository.findById(id);
+    }
     
+    @Override
+    public AccountDto updateAccount(Long id, AccountDto accountDto) {
+        Account account = accountRepository.findAccountById(id);
+        account.setUsername(accountDto.getUsername());
+        account.setPassword(accountDto.getPassword());
+        account.setEmail(accountDto.getEmail());
+        accountRepository.save(account);
+        return accountDto;
+    }
+    
+    @Override
+    public void deleteAccount(Long id) {
+        accountRepository.deleteById(id);
+    }
     @Autowired
     public ModelMapper modelMapper;
 
@@ -53,9 +70,8 @@ public class AccountServiceIml implements IAccountService{
 //    @Override
 //    public AccountDto createAccount(AccountDto accountDto) {
 //        Account account = this.modelMapper.map(accountDto, Account.class);
-//        Account savedAccount = this.accountRepository.save(account);
+//        Account savedAccount = accountRepository.save(account);
 //        return this.modelMapper.map(savedAccount, AccountDto.class);
 //    }
-
 
 }

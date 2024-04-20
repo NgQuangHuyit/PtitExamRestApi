@@ -38,6 +38,18 @@ public class AccountController {
     	}
     }
     
+    @PutMapping("/update/{id}")
+    public String updateAccount(@PathVariable Long id, @RequestBody AccountDto account) {
+        accountService.updateAccount(id, account);
+        return "Account updated successfully";
+    }
+    
+    @DeleteMapping("/delete/{id}")
+    public String deleteAccount(@PathVariable Long id) {
+        accountService.deleteAccount(id);
+        return "Account deleted successfully";
+    }
+    
     @GetMapping("/user")
     public ResponseEntity<?> getAllAccounts() {
         List<AccountDto> accountDtos = accountService.findAll();

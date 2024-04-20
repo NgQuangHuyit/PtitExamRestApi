@@ -11,9 +11,13 @@ public interface IAccountService {
 
     List<AccountDto> findAll();
 
-    AccountDto createAccount(AccountDto accountDto);
-
     boolean registerUser(String username, String password, String email);
     
-    AccountDto loginAccount(String username, String password);
+    AccountDto loginAccount(String username, String password);   
+    
+    void deleteAccount(Long id);
+
+	AccountDto updateAccount(Long id, AccountDto accountDto);
+
+	Optional<Account> findAccountById(Long id);
 }
