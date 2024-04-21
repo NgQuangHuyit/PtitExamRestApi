@@ -1,26 +1,31 @@
 package com.ptit.ptitexam.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
 @Data
-public class Account {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 5, max = 50)
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]{4,}")
     @Column(nullable = false, unique = true, updatable = false)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
+    @Email(message = "Invalid email")
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -44,15 +49,16 @@ public class Account {
     private String phoneNumber;
 
 
-    @Temporal(TemporalType.TIME)
-    private Time lastLogin;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Timestamp lastLogin;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ExamResult> ExamResults;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
+
 
 }

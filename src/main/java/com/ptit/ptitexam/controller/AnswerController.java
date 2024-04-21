@@ -15,17 +15,19 @@ public class AnswerController {
 
     @PostMapping("/answers")
     public ResponseEntity<?> createAnswer(@RequestParam(name = "quesId", required = true) Long questionId, @RequestBody AnswerDto answerDto) {
-        return ResponseEntity.ok(answerService.createAnswer(answerDto, questionId));
+        AnswerDto ans = answerService.createAnswer(answerDto, questionId);
+        return ResponseEntity.ok(new ApiResponse<>("Answer was created successfully", true, ans));
     }
 
     @PutMapping("/answers")
     public ResponseEntity<?> updateAnswer(@RequestParam(name = "id", required = true) Long id, @RequestBody AnswerDto answerDto) {
-        return ResponseEntity.ok(answerService.updateAnswer(answerDto, id));
+        AnswerDto ans = answerService.updateAnswer(answerDto, id);
+        return ResponseEntity.ok(new ApiResponse<>("Answer was updated successfully", true, ans));
     }
 
     @DeleteMapping("/answers")
     public ResponseEntity<?> deleteAnswer(@RequestParam(name = "id", required = true) Long answerId) {
         answerService.deleteAnswer(answerId);
-        return new ResponseEntity<>(new ApiResponse("Answer was deleted successfully", true), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse<>("Answer was deleted successfully", true, null), HttpStatus.OK);
     }
 }

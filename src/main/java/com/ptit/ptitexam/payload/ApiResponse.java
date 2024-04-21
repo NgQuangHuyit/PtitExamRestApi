@@ -9,7 +9,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiResponse {
+public class ApiResponse<T> {
     private String message;
     private boolean success;
+    private T data;
+
+    public ApiResponse(String message, boolean success) {
+        this.message = message;
+        this.success = success;
+    }
 }

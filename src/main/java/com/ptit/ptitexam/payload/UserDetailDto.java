@@ -2,9 +2,6 @@ package com.ptit.ptitexam.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,32 +9,32 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountDto {
+public class UserDetailDto {
 
     private Long id;
 
-    @NotEmpty
-    @Size(min = 5, max = 20, message = "username must be minium of 5 characters and maximum of 20 charactors")
     private String username;
 
-    @NotEmpty
-    @Size(min=8)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Email(message = "Invalid Email")
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Timestamp createdAt;
 
     private String fullname;
 
     @Column(length = 20)
     private String classID;
+
+    private Boolean isActive;
 
     @Temporal(TemporalType.DATE)
     private Date dob;
@@ -49,7 +46,5 @@ public class AccountDto {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Time lastLogin;
-
-
 
 }

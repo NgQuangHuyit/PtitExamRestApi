@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -25,10 +24,10 @@ public class ExamResult {
     private Float point;
 
     @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Account account;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "exam_id", nullable = false, updatable = false)

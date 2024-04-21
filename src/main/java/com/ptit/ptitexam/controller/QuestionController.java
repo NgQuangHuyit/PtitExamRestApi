@@ -25,18 +25,20 @@ public class QuestionController {
 
     @PostMapping("/exams/{examID}/questions")
     public ResponseEntity<?> addQuestion(@PathVariable("examID") Long examID, @RequestBody QuestionDto questionDto) {
-        return ResponseEntity.ok(questionService.createQuestion(questionDto, examID));
+        QuestionDto ques = questionService.createQuestion(questionDto, examID);
+        return ResponseEntity.ok(new ApiResponse<>("Question was created successfully", true, ques));
     }
 
     @PutMapping("/questions/{quesId}")
     public ResponseEntity<?> updateQuestion(@PathVariable("quesId") Long quesId, @RequestBody QuestionDto questionDto) {
-        return ResponseEntity.ok(questionService.updateQuestion(quesId, questionDto));
+        QuestionDto ques = questionService.updateQuestion(quesId, questionDto);
+        return ResponseEntity.ok(new ApiResponse<>("Question was updated successfully", true, ques));
     }
 
     @DeleteMapping("/questions/{quesId}")
     public ResponseEntity<?> deleteQuestion(@PathVariable("quesId") Long questionId) {
         questionService.deleteQuestion(questionId);
-        return ResponseEntity.ok(new ApiResponse("delete question with id" + questionId + "successful", true));
+        return ResponseEntity.ok(new ApiResponse<>("Question was deleted successfully", true));
     }
 
 
