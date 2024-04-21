@@ -49,12 +49,13 @@ public class ExamController {
 
     @PutMapping("/exams/{id}")
     public ResponseEntity<?> updateExam(@PathVariable(required = true) Long id, @RequestBody ExamDto examDto) {
-        return ResponseEntity.ok(examService.updateExam(id, examDto));
+        ExamDto exam = examService.updateExam(id, examDto);
+        return ResponseEntity.ok(new ApiResponse<>("Exam was updated successfully", true, exam));
     }
 
     @DeleteMapping("/exams/{id}")
     public ResponseEntity<?> deleteExam(@PathVariable(required = true) Long id) {
         examService.deleteExam(id);
-        return new ResponseEntity<>(new ApiResponse("Exam was deleted successfully", true), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse<>("Exam was deleted successfully", true), HttpStatus.OK);
     }
 }
