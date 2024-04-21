@@ -1,4 +1,4 @@
-package com.ptit.ptitexam.payload;
+package com.ptit.ptitexam.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

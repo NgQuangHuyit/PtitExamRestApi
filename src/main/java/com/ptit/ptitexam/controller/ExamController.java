@@ -1,7 +1,7 @@
 package com.ptit.ptitexam.controller;
 
 
-import com.ptit.ptitexam.payload.ApiResponse;
+import com.ptit.ptitexam.payload.response.ApiResponse;
 import com.ptit.ptitexam.payload.ExamDto;
 import com.ptit.ptitexam.service.ExamServiceImpl;
 

@@ -1,6 +1,6 @@
 package com.ptit.ptitexam.controller;
 
-import com.ptit.ptitexam.payload.ApiResponse;
+import com.ptit.ptitexam.payload.response.ApiResponse;
 import com.ptit.ptitexam.payload.QuestionDto;
 import com.ptit.ptitexam.service.QuestionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

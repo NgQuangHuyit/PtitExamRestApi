@@ -1,7 +1,7 @@
 package com.ptit.ptitexam.controller;
 
 import com.ptit.ptitexam.payload.AnswerDto;
-import com.ptit.ptitexam.payload.ApiResponse;
+import com.ptit.ptitexam.payload.response.ApiResponse;
 import com.ptit.ptitexam.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

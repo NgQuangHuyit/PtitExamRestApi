@@ -28,6 +28,8 @@ public class CustomExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleConstraintViolationException(ConstraintViolationException e) {
         e.getConstraintViolations().forEach(a -> System.out.println(a.getConstraintDescriptor()));
-        return new ErrorResponse(HttpStatus.BAD_REQUEST, "Validation Failed");
+        return new ErrorResponse(HttpStatus.BAD_REQUEST, "Validation Failed " +
+                "(username must be at least 5 characters, at most 20 characters, " +
+                "and start with a characters)");
     }
 }
