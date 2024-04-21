@@ -1,9 +1,9 @@
 package com.ptit.ptitexam.controller;
 
-import com.ptit.ptitexam.payload.RegisterDto;
+import com.ptit.ptitexam.payload.request.RegisterDto;
 import com.ptit.ptitexam.payload.UserDetailDto;
 import com.ptit.ptitexam.payload.ApiResponse;
-import com.ptit.ptitexam.payload.LoginDto;
+import com.ptit.ptitexam.payload.request.LoginDto;
 import com.ptit.ptitexam.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

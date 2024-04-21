@@ -3,8 +3,8 @@ package com.ptit.ptitexam.service;
 import com.ptit.ptitexam.entity.User;
 import com.ptit.ptitexam.exceptions.NotFoundException;
 import com.ptit.ptitexam.exceptions.UsernameOrEmailAlreadyExists;
-import com.ptit.ptitexam.payload.LoginDto;
-import com.ptit.ptitexam.payload.RegisterDto;
+import com.ptit.ptitexam.payload.request.LoginDto;
+import com.ptit.ptitexam.payload.request.RegisterDto;
 import com.ptit.ptitexam.payload.UserDetailDto;
 import com.ptit.ptitexam.repository.UserRepository;
 

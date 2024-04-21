@@ -1,6 +1,7 @@
 package com.ptit.ptitexam.exceptions;
 
 
+import com.ptit.ptitexam.payload.response.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

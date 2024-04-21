@@ -1,16 +1,16 @@
-package com.ptit.ptitexam.exceptions;
+package com.ptit.ptitexam.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorResponse {
-    private HttpStatus status;
-    private String message;
+public class RegisterDto {
+    private String username;
+    private String password;
+    private String email;
 }
