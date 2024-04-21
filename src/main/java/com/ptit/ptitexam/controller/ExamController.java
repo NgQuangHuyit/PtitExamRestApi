@@ -44,7 +44,8 @@ public class ExamController {
 
     @PostMapping("/exams")
     public ResponseEntity<?> createExam(@RequestParam(name = "adminId", required = true) Long adminId, @RequestBody ExamDto examDto) {
-        return ResponseEntity.ok(examService.createExam(examDto, adminId));
+        ExamDto exam = examService.createExam(examDto, adminId);
+        return ResponseEntity.ok(new ApiResponse<>("Exam was created successfully", true, exam));
     }
 
     @PutMapping("/exams/{id}")

@@ -1,6 +1,7 @@
 package com.ptit.ptitexam.exceptions;
 
 
+import com.ptit.ptitexam.payload.response.ApiResponse;
 import com.ptit.ptitexam.payload.response.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,9 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFoundException(NotFoundException e) {
+    public ApiResponse<ErrorResponse> handleNotFoundException(NotFoundException e) {
 
-        return new ErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
+        return new ApiResponse<>("Failed", false, new ErrorResponse(HttpStatus.NOT_FOUND, e.getMessage()));
     }
 
     @ExceptionHandler(UsernameOrEmailAlreadyExists.class)
