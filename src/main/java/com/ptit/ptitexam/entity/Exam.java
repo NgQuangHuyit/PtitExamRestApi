@@ -1,5 +1,6 @@
 package com.ptit.ptitexam.entity;
 
+import com.ptit.ptitexam.payload.ExamStatistic;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -64,5 +65,29 @@ public class Exam {
 
     public void updateQuestionCnt() {
         this.questionCount = this.questions.size();
+    }
+
+    public ExamStatistic getStatistic() {
+        ExamStatistic statistic = new ExamStatistic();
+        statistic.setExamName(this.title);
+        float max_point = 0;
+        float min_point = 10;
+        float total_point = 0;
+        for (ExamResult examResult : this.examResults) {
+            if (examResult.getPoint() > max_point) {
+                max_point = examResult.getPoint();
+            }
+            if (examResult.getPoint() < min_point) {
+                min_point = examResult.getPoint();
+            }
+            total_point += examResult.getPoint();
+        }
+
+        float avg_point = total_point / this.examResults.size();
+        statistic.setMaxPoint(max_point);
+        statistic.setMinPoint(min_point);
+        statistic.setAvgPoint(avg_point);
+        statistic.setCnt(examResults.size());
+        return statistic;
     }
 }

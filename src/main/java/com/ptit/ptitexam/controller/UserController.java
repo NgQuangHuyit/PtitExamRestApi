@@ -1,5 +1,6 @@
 package com.ptit.ptitexam.controller;
 
+import com.ptit.ptitexam.payload.Session;
 import com.ptit.ptitexam.payload.request.RegisterDto;
 import com.ptit.ptitexam.payload.UserDetailDto;
 import com.ptit.ptitexam.payload.response.ApiResponse;
@@ -21,11 +22,11 @@ public class UserController {
 
     @PostMapping("users/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
-        boolean checked = userService.loginAccount(loginDto);
-        if(!checked) {
+        Session session = userService.loginAccount(loginDto);
+        if(session == null) {
             return new ResponseEntity<>(new ApiResponse<>("Wrong username or password", false, null), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(new ApiResponse<>("Login successful", true, null), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse<>("Login successful", true, session), HttpStatus.OK);
         }
     }
 
@@ -60,8 +61,8 @@ public class UserController {
     }
 
     @GetMapping("/users/search")
-    public ResponseEntity<?> searchUser(@RequestParam String fullname) {
-        return ResponseEntity.ok(userService.searchByFullName(fullname));
+    public ResponseEntity<?> searchUser(@RequestParam String searchValue) {
+        return ResponseEntity.ok(userService.searchByFullName(searchValue));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ptit.ptitexam.service;
 
+import com.ptit.ptitexam.payload.Session;
 import com.ptit.ptitexam.payload.request.LoginDto;
 import com.ptit.ptitexam.payload.request.RegisterDto;
 import com.ptit.ptitexam.payload.UserDetailDto;
@@ -12,7 +13,7 @@ public interface IUserService {
 
     UserDetailDto registerUser(RegisterDto registerDto);
 
-    boolean loginAccount(LoginDto loginDto);
+    Session loginAccount(LoginDto loginDto);
 
     void deleteUserById(Long id);
 

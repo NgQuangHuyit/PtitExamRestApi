@@ -3,6 +3,7 @@ package com.ptit.ptitexam.service;
 import com.ptit.ptitexam.entity.User;
 import com.ptit.ptitexam.exceptions.NotFoundException;
 import com.ptit.ptitexam.exceptions.UsernameOrEmailAlreadyExists;
+import com.ptit.ptitexam.payload.Session;
 import com.ptit.ptitexam.payload.request.LoginDto;
 import com.ptit.ptitexam.payload.request.RegisterDto;
 import com.ptit.ptitexam.payload.UserDetailDto;
@@ -42,9 +43,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean loginAccount(LoginDto loginDto) {
-        User accountEntity = userRepository.findByUsernameAndPassword(loginDto.getUsername(), loginDto.getPassword());
-        return accountEntity != null;
+    public Session loginAccount(LoginDto loginDto) {
+        User user = userRepository.findByUsername(loginDto.getUsername());
+        if(user == null) {
+            return null;
+        }
+        if (!user.getPassword().equals(loginDto.getPassword())) {
+            return null;
+        }
+        Session session = new Session();
+        session.setAccountId(user.getId());
+        session.setAccessToken("Access Token");
+        return session;
     }
 
     @Override
@@ -63,7 +73,7 @@ public class UserServiceImpl implements IUserService {
         user.setIsActive(userDetailDto.getIsActive());
         user.setPhoneNumber(userDetailDto.getPhoneNumber());
         userRepository.save(user);
-        return userDetailDto;
+        return modelMapper.map(user, UserDetailDto.class);
     }
 
     @Override

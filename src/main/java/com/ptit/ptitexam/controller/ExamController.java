@@ -59,4 +59,9 @@ public class ExamController {
         examService.deleteExam(id);
         return new ResponseEntity<>(new ApiResponse<>("Exam was deleted successfully", true), HttpStatus.OK);
     }
+
+    @GetMapping("exams/{id}/statistics")
+    public ResponseEntity<?> getStatistics(@PathVariable(required = true) Long id) {
+        return ResponseEntity.ok(examService.getStatistic(id));
+    }
 }
