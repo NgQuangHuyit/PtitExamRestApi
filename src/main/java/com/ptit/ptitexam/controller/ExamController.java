@@ -44,7 +44,8 @@ public class ExamController {
 
     @PostMapping("/exams")
     public ResponseEntity<?> createExam(@RequestParam(name = "adminId", required = true) Long adminId, @RequestBody ExamDto examDto) {
-        return ResponseEntity.ok(examService.createExam(examDto, adminId));
+        ExamDto exam = examService.createExam(examDto, adminId);
+        return ResponseEntity.ok(new ApiResponse<>("Exam was created successfully", true, exam));
     }
 
     @PutMapping("/exams/{id}")
@@ -57,5 +58,10 @@ public class ExamController {
     public ResponseEntity<?> deleteExam(@PathVariable(required = true) Long id) {
         examService.deleteExam(id);
         return new ResponseEntity<>(new ApiResponse<>("Exam was deleted successfully", true), HttpStatus.OK);
+    }
+
+    @GetMapping("exams/{id}/statistics")
+    public ResponseEntity<?> getStatistics(@PathVariable(required = true) Long id) {
+        return ResponseEntity.ok(examService.getStatistic(id));
     }
 }

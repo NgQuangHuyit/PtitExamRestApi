@@ -36,6 +36,16 @@ public class ExamResult {
     private Exam exam;
 
     @OneToMany(mappedBy = "examResult", cascade = CascadeType.ALL)
-    private List<SelectedAnswer> selectedAnswers;
+    private List<Answer> answers;
 
+    public void updatePoint() {
+        int totalQuestions = exam.getQuestions().size();
+        int correctAnswersCnt = 0;
+        for (Answer answer : answers) {
+            if (answer.getIsCorrect()) {
+                correctAnswersCnt++;
+            }
+        }
+        this.point = (float) correctAnswersCnt / (float) totalQuestions * 10f;
+    }
 }

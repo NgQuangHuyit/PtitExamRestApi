@@ -1,15 +1,10 @@
 package com.ptit.ptitexam.service;
 
 import com.ptit.ptitexam.payload.AnswerDto;
-
-import java.util.List;
+import com.ptit.ptitexam.payload.request.SelectAnswerRequest;
 
 public interface IAnswerService {
-    List<AnswerDto> getAllByQuestionId(Long questionId);
 
-    AnswerDto createAnswer(AnswerDto answerDto, Long questionId);
+    AnswerDto createSelectedAnswer(SelectAnswerRequest selectAnswerRequest, Long resultId);
 
-    AnswerDto updateAnswer(AnswerDto answerDto, Long answerId);
-
-    void deleteAnswer(Long answerId);
 }

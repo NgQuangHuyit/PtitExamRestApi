@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Data
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,13 +16,20 @@ public class Question {
     @Column(length = 300)
     private String content;
 
-    private String type;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp lastModified;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Answer> answers;
+    @Column(length = 300)
+    private String choiceA;
+    @Column(length = 300)
+    private String choiceB;
+    @Column(length = 300)
+    private String choiceC;
+    @Column(length = 300)
+    private String choiceD;
+
+    @Enumerated(EnumType.STRING)
+    private Choice rightChoice = Choice.A;
 
     @ManyToOne
     @JoinColumn(name = "exam_id", updatable = false, nullable = false)

@@ -2,6 +2,9 @@ package com.ptit.ptitexam.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.ptit.ptitexam.entity.Choice;
+import com.ptit.ptitexam.entity.Exam;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,12 +22,17 @@ public class QuestionDto {
 
     private String content;
 
-    private String type;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Timestamp lastModified;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<AnswerDto>  answers = new ArrayList<>();
+    private String choiceA;
+
+    private String choiceB;
+
+    private String choiceC;
+
+    private String choiceD;
+
+    private Choice rightChoice = Choice.A;
 
 }

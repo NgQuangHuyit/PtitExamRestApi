@@ -49,7 +49,11 @@ public class QuestionServiceImpl implements IQuestionService{
     public QuestionDto updateQuestion(Long questionID, QuestionDto questionDto) {
         Question ques = questionRepository.findById(questionID).orElseThrow(() -> new NotFoundException("Question", "id", questionID));
         ques.setContent(questionDto.getContent());
-        ques.setType(questionDto.getType());
+        ques.setChoiceA(questionDto.getChoiceA());
+        ques.setChoiceB(questionDto.getChoiceB());
+        ques.setChoiceC(questionDto.getChoiceC());
+        ques.setChoiceD(questionDto.getChoiceD());
+        ques.setRightChoice(questionDto.getRightChoice());
         questionRepository.save(ques);
         return modelMapper.map(ques, QuestionDto.class);
     }

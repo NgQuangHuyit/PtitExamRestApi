@@ -4,6 +4,7 @@ import com.ptit.ptitexam.entity.Admin;
 import com.ptit.ptitexam.entity.Exam;
 import com.ptit.ptitexam.exceptions.NotFoundException;
 import com.ptit.ptitexam.payload.ExamDto;
+import com.ptit.ptitexam.payload.ExamStatistic;
 import com.ptit.ptitexam.repository.AdminRepository;
 import com.ptit.ptitexam.repository.ExamRepository;
 import org.modelmapper.ModelMapper;
@@ -98,5 +99,11 @@ public class ExamServiceImpl implements IExamService{
     public void deleteExam(Long id) {
         Exam exam = examRepository.findById(id).orElseThrow(() -> new NotFoundException("Exam", "id", id));
         examRepository.delete(exam);
+    }
+
+    @Override
+    public ExamStatistic getStatistic(Long id) {
+        Exam exam = examRepository.findById(id).orElseThrow(() -> new NotFoundException("Exam", "id", id));
+        return exam.getStatistic();
     }
 }
