@@ -4,6 +4,7 @@ import com.ptit.ptitexam.entity.Exam;
 import com.ptit.ptitexam.entity.ExamResult;
 import com.ptit.ptitexam.entity.User;
 import com.ptit.ptitexam.exceptions.NotFoundException;
+import com.ptit.ptitexam.exceptions.ResouceAlreadyExists;
 import com.ptit.ptitexam.payload.ExamResultDto;
 import com.ptit.ptitexam.payload.ExamResultSumary;
 import com.ptit.ptitexam.repository.ExamRepository;
@@ -66,6 +67,8 @@ public class ExamResultService implements IExamResultService{
     @Override
     public ExamResultDto submitResult(Long examResultId) {
         ExamResult result = examResultRepository.findById(examResultId).orElseThrow(() -> new NotFoundException("ExamResult", "id", examResultId));
+        if (result.getEndTime() != null)
+            throw new ResouceAlreadyExists("ExamResult was already submitted! Cannot submit result");
         result.setEndTime(new Timestamp(System.currentTimeMillis()));
         result.updatePoint();
         examResultRepository.save(result);
