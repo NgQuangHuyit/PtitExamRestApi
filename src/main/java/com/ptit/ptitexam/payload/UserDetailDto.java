@@ -1,6 +1,7 @@
 package com.ptit.ptitexam.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ptit.ptitexam.entity.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -47,4 +49,6 @@ public class UserDetailDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Time lastLogin;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Set<Role> roles;
 }

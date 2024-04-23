@@ -10,7 +10,7 @@ public interface IExamService {
 
     ExamDto getById(Long id);
 
-    ExamDto createExam(ExamDto examDto, Long adminId);
+    ExamDto createExam(ExamDto examDto);
 
     List<ExamDto> filterExams(Boolean status, String subject);
 

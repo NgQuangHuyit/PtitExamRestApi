@@ -4,17 +4,22 @@ import com.ptit.ptitexam.entity.Exam;
 import com.ptit.ptitexam.entity.ExamResult;
 import com.ptit.ptitexam.entity.User;
 import com.ptit.ptitexam.exceptions.NotFoundException;
+import com.ptit.ptitexam.exceptions.ResouceAlreadyExists;
 import com.ptit.ptitexam.payload.ExamResultDto;
 import com.ptit.ptitexam.payload.ExamResultSumary;
 import com.ptit.ptitexam.repository.ExamRepository;
 import com.ptit.ptitexam.repository.ExamResultRepository;
 import com.ptit.ptitexam.repository.UserRepository;
+import jakarta.ws.rs.ForbiddenException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ExamResultService implements IExamResultService{
@@ -51,8 +56,11 @@ public class ExamResultService implements IExamResultService{
     }
 
     @Override
-    public ExamResultDto createResult(Long userId, Long examId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User", "id", userId));
+    public ExamResultDto createResult(Long examId) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String name = securityContext.getAuthentication().getName();
+        User user = userRepository.findByUsername(name);
+        if (user == null) throw new NotFoundException("User", "name", name);
         Exam exam = examRepository.findById(examId).orElseThrow(() -> new NotFoundException("Exam", "id", examId));
         ExamResult examResult = new ExamResult();
         examResult.setUser(user);
@@ -65,7 +73,17 @@ public class ExamResultService implements IExamResultService{
 
     @Override
     public ExamResultDto submitResult(Long examResultId) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String name = securityContext.getAuthentication().getName();
+        User user = userRepository.findByUsername(name);
+        if (user == null) throw new NotFoundException("User", "name", name);
+
         ExamResult result = examResultRepository.findById(examResultId).orElseThrow(() -> new NotFoundException("ExamResult", "id", examResultId));
+        if (!Objects.equals(result.getUser().getId(), user.getId())) {
+            throw new ForbiddenException("");
+        }
+        if (result.getEndTime() != null)
+            throw new ResouceAlreadyExists("ExamResult was already submitted! Cannot submit result");
         result.setEndTime(new Timestamp(System.currentTimeMillis()));
         result.updatePoint();
         examResultRepository.save(result);

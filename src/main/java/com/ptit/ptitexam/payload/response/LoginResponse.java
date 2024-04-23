@@ -1,4 +1,4 @@
-package com.ptit.ptitexam.payload.request;
+package com.ptit.ptitexam.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
-    private String username;
-    private String password;
+public class LoginResponse {
+    private String token;
+    private boolean success;
 }

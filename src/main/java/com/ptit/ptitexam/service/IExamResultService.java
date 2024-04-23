@@ -1,6 +1,5 @@
 package com.ptit.ptitexam.service;
 
-import com.ptit.ptitexam.entity.ExamResult;
 import com.ptit.ptitexam.payload.ExamResultDto;
 import com.ptit.ptitexam.payload.ExamResultSumary;
 
@@ -13,7 +12,7 @@ public interface IExamResultService {
 
     void deleteResult(Long examResultId);
 
-    ExamResultDto createResult(Long userId, Long examId);
+    ExamResultDto createResult(Long examId);
 
     ExamResultDto submitResult(Long resultId);
 
