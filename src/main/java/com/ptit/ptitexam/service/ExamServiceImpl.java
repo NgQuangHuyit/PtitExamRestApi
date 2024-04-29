@@ -1,11 +1,9 @@
 package com.ptit.ptitexam.service;
 
-import com.ptit.ptitexam.entity.Admin;
 import com.ptit.ptitexam.entity.Exam;
 import com.ptit.ptitexam.exceptions.NotFoundException;
 import com.ptit.ptitexam.payload.ExamDto;
 import com.ptit.ptitexam.payload.ExamStatistic;
-import com.ptit.ptitexam.repository.AdminRepository;
 import com.ptit.ptitexam.repository.ExamRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,6 @@ public class ExamServiceImpl implements IExamService{
     @Autowired
     private ExamRepository examRepository;
 
-    @Autowired
-    private AdminRepository adminRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -52,11 +48,9 @@ public class ExamServiceImpl implements IExamService{
     }
 
     @Override
-    public ExamDto createExam(ExamDto examDto, Long adminId) {
-        Admin admin = adminRepository.findById(adminId).orElseThrow(() -> new NotFoundException("Admin", "id", adminId));
+    public ExamDto createExam(ExamDto examDto) {
         Exam exam = modelMapper.map(examDto, Exam.class);
         exam.setIsActive(true);
-        exam.setAdmin(admin);
         examRepository.save(exam);
         return ExamToExamDto(exam);
     }

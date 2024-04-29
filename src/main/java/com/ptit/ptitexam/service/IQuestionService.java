@@ -15,4 +15,5 @@ public interface IQuestionService {
 
     void deleteQuestion(Long questionId);
 
+    List<QuestionDto> getQuestList(Long examID);
 }

@@ -37,11 +37,6 @@ public class Exam {
     @Column
     private Integer questionCount = 0;
 
-    @ManyToOne
-    @JoinColumn(name = "createdBy")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Admin admin;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude

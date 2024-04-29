@@ -9,6 +9,7 @@ import lombok.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -52,6 +53,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp lastLogin;
 
+    private Set<Role> roles;
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ExamResult> ExamResults;
 
@@ -59,6 +63,5 @@ public class User {
     protected void onCreate() {
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
-
 
 }

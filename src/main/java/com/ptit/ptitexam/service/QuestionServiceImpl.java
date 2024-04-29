@@ -31,6 +31,14 @@ public class QuestionServiceImpl implements IQuestionService{
     }
 
     @Override
+    public List<QuestionDto> getQuestList(Long examID){
+        Exam exam = examRepository.findById(examID).orElseThrow(() -> new NotFoundException("Exam", "id", examID));
+        List<Question> questions = questionRepository.findAllByExam(exam);
+        questions.forEach(question -> question.setRightChoice(null));
+        return questions.stream().map((question) -> this.modelMapper.map(question, QuestionDto.class)).toList();
+    }
+
+    @Override
     public QuestionDto getQuestionById(Long id) {
         Question ques = questionRepository.findById(id).orElseThrow(() -> new NotFoundException("Question", "id", id));
         return modelMapper.map(ques, QuestionDto.class);

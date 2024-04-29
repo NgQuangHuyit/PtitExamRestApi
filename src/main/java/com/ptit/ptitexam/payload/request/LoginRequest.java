@@ -1,16 +1,13 @@
 package com.ptit.ptitexam.payload.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterDto {
+public class LoginRequest {
     private String username;
     private String password;
-    private String email;
 }

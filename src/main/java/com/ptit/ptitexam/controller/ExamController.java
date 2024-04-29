@@ -8,6 +8,7 @@ import com.ptit.ptitexam.service.ExamServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +18,19 @@ public class ExamController {
     @Autowired
     private ExamServiceImpl examService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/exams")
     public ResponseEntity<?> getAllExams() {
         List<ExamDto> exams = examService.getAll();
         return ResponseEntity.ok(exams);
     }
 
+
     @GetMapping("/exams/{id}")
     public ResponseEntity<?> getExamById(@PathVariable(required = true) Long id) {
         return ResponseEntity.ok(examService.getById(id));
     }
+
 
     @GetMapping("/exams/filter")
     public ResponseEntity<?> getExamsByFilter(
@@ -42,24 +46,28 @@ public class ExamController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/exams")
-    public ResponseEntity<?> createExam(@RequestParam(name = "adminId", required = true) Long adminId, @RequestBody ExamDto examDto) {
-        ExamDto exam = examService.createExam(examDto, adminId);
+    public ResponseEntity<?> createExam(@RequestBody ExamDto examDto) {
+        ExamDto exam = examService.createExam(examDto);
         return ResponseEntity.ok(new ApiResponse<>("Exam was created successfully", true, exam));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/exams/{id}")
     public ResponseEntity<?> updateExam(@PathVariable(required = true) Long id, @RequestBody ExamDto examDto) {
         ExamDto exam = examService.updateExam(id, examDto);
         return ResponseEntity.ok(new ApiResponse<>("Exam was updated successfully", true, exam));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/exams/{id}")
     public ResponseEntity<?> deleteExam(@PathVariable(required = true) Long id) {
         examService.deleteExam(id);
         return new ResponseEntity<>(new ApiResponse<>("Exam was deleted successfully", true), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("exams/{id}/statistics")
     public ResponseEntity<?> getStatistics(@PathVariable(required = true) Long id) {
         return ResponseEntity.ok(examService.getStatistic(id));
