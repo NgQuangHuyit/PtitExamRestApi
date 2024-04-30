@@ -36,6 +36,8 @@ public class ExamController {
     public ResponseEntity<?> getExamsByFilter(
             @RequestParam(name = "status", defaultValue = "") Boolean status,
             @RequestParam(name = "subject", defaultValue = "") String subject) {
+        System.out.println(status);
+        System.out.println(subject);
         return ResponseEntity.ok(examService.filterExams(status, subject));
     }
 

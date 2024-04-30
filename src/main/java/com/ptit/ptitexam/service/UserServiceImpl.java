@@ -80,7 +80,7 @@ public class UserServiceImpl implements IUserService {
         user.setDob(updateUserInfo.getDob());
         user.setIsActive(updateUserInfo.getIsActive());
         user.setPhoneNumber(updateUserInfo.getPhoneNumber());
-        user.setClassID(user.getClassID());
+        user.setClassID(updateUserInfo.getClassID());
         userRepository.save(user);
         return modelMapper.map(user, UserDetailDto.class);
     }
