@@ -62,7 +62,7 @@ public class UserController {
 
     @GetMapping("/users/search")
     public ResponseEntity<?> searchUser(@RequestParam String searchValue) {
-        return ResponseEntity.ok(userService.searchByFullName(searchValue));
+        return ResponseEntity.ok(userService.searchByFullName(searchValue.replaceAll("\s\s+", " ").trim()));
     }
 
 }
