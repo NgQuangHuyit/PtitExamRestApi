@@ -69,7 +69,10 @@ public class QuestionServiceImpl implements IQuestionService{
     @Override
     public void deleteQuestion(Long id) {
         Question ques = questionRepository.findById(id).orElseThrow(() -> new NotFoundException("Question", "id", id));
+        Exam exam = ques.getExam();
         questionRepository.delete(ques);
+        exam.updateQuestionCnt();
+        examRepository.save(exam);
     }
 
 }

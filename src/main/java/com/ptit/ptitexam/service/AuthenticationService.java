@@ -40,13 +40,13 @@ public class AuthenticationService {
 
     public LoginResponse authenticate(LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.getUsername());
-        if (user == null) return new LoginResponse(null, false, null, null);
+        if (user == null) return new LoginResponse(null, false, null, null, null, null);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         boolean result = passwordEncoder.matches(loginRequest.getPassword(), user.getPassword());
-        if (!result) return new LoginResponse(null, false, null, null);
+        if (!result) return new LoginResponse(null, false, null, null, null, null);
         else {
             String token = this.generateToken(user);
-            return new LoginResponse(token, true, user.getUsername(), user.getId());
+            return new LoginResponse(token, true, user.getUsername(), user.getId(), user.getEmail(), user.getFullname());
         }
     }
 

@@ -50,7 +50,7 @@ public class ExamServiceImpl implements IExamService{
     @Override
     public ExamDto createExam(ExamDto examDto) {
         Exam exam = modelMapper.map(examDto, Exam.class);
-        exam.setIsActive(true);
+        if (exam.getIsActive() == null) exam.setIsActive(false);
         examRepository.save(exam);
         return ExamToExamDto(exam);
     }
